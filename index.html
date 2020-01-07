@@ -100,7 +100,6 @@
         var zoomHome = L.Control.zoomHome();
         zoomHome.addTo(map);
 
-
         //Topografico
         var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
             maxZoom: 17
@@ -126,23 +125,20 @@
         var layer_CORINE_INCENDIO_PolygonToRas_1 = new L.imageOverlay(img_CORINE_INCENDIO_PolygonToRas_1, img_bounds_CORINE_INCENDIO_PolygonToRas_1);
         bounds_group.addLayer(layer_CORINE_INCENDIO_PolygonToRas_1);
 
-
-
         // Shapefiles
         var Campo1 = new L.Shapefile('Incendio.zip', {
             onEachFeature: function(feature, marker) {
-                marker.bindPopup("<h3>Arbol número:" + feature.properties.Cod_Arbol + "</h3><i><b>Diametro:</b>" + feature.properties.Avg_CHM + " m <br><b>Area:</b>" +
-                    feature.properties.Shape_Area + " m2<br><b> Perímetro:" + feature.properties.Shape_Leng + " m <b><br><b>Número Ptos. Lidar:" + feature.properties.Count_ + "</i><b>");
+                marker.bindPopup("<b>Área:</b>" +
+                    feature.properties.Shape_Area + " m2<br><b> Perímetro:" + feature.properties.Shape_Leng + " m");
             }
         });
 
         var Campo2 = new L.Shapefile('Peninsula.zip', {
             onEachFeature: function(feature, marker) {
-                marker.bindPopup("<h3>Arbol número:" + feature.properties.Cod_Arbol + "</h3><i><b>Diametro:</b>" + feature.properties.Avg_CHM + " m <br><b>Area:</b>" +
-                    feature.properties.Shape_Area + " m2<br><b> Perímetro:" + feature.properties.Shape_Leng + " m <b><br><b>Número Ptos. Lidar:" + feature.properties.Count_ + "</i><b>");
+                marker.bindPopup("<h3> Comunidad: " + feature.properties.Nombre +
+                    "</h3><i><b>Area: </b>" + Math.round(Number(feature.properties.Shape_Area) / 10000).toString() + " ha");
             }
         });
-
         // GeoTIFF
         var lluvia = "data/SeptiembrePrecipitaciones.tif";
         fetch(lluvia).then(r => r.arrayBuffer()).then(function(buffer) {
@@ -158,7 +154,7 @@
                     var tipo = "";
                     switch (e.value) {
 
-                        default: tipo = (Math.round(e.value * 100) / 100).toString() + "ÂºC"
+                        default: tipo = (Math.round(e.value * 100) / 100).toString() + "L/m²"
                     }
                     var popup = L.popup()
                         .setLatLng(e.latlng)
