@@ -8,7 +8,7 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    margin: 4rem;
+    margin: 5.25rem;
 }
 
 .map-frame {
@@ -18,4 +18,14 @@ header {
 
 #map {
     height: 100%;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #004d40;
+    color: #b2dfdb;
+    text-align: center;
 }
